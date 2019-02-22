@@ -1,0 +1,10 @@
+---
+# Deploys the CTFd container 
+- name: Cloning the repository
+  git:
+    repo: https://github.com/CTFd/CTFd.git
+    dest: /home/zappy/CTFd
+    
+- name: Running the container
+  docker_service:
+    project_src: /home/zappy/CTFd
