@@ -1,0 +1,55 @@
+---
+# Installs Deluge on Ubuntu Server
+
+- name: Add the Deluge PPAs to Apt Repos
+  apt_repository:
+    repo: ppa:deluge-team/ppa
+    state: present
+
+- name: Install Deluge daemon and Web UI
+  apt:
+    name: [deluged, deluge-webui]
+    state: present
+
+- name: Add the deluge user
+  user:
+    name: deluge
+    comment: deluged service account
+    system: yes
+    home: /home/deluge
+    state: present
+
+- name: Add zappy to the deluge group
+  user:
+    name: zappy
+    group: deluge
+    append: yes
+    state: present
+
+- name: Copying the Deluge systemd service file
+  copy:
+    src: ./deluge/files/deluge.service
+    dest: /etc/systemd/system/deluged.service
+    owner: deluge
+    group: deluge
+    mode: 0644
+
+- name: Start and enable the Deluge daemon
+  systemd:
+    state: started
+    name: deluged
+    enabled: yes
+
+- name: Copying the Deluge WebUI systemd service file
+  copy:
+    src: ./deluge/files/deluge-web.service
+    dest: /etc/systemd/system/deluge-web.service
+    owner: deluge
+    group: deluge
+    mode: 0644
+
+- name: Starting the Deluge WebUI daemon
+  systemd:
+    state: started
+    name: deluge-web
+    enabled: yes

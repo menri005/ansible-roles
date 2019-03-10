@@ -1,0 +1,19 @@
+---
+# Installs ExpressVPN on Ubuntu Server
+
+- name: Copy the Express VPN package
+  copy:
+    src: /Users/martin/Downloads/expressvpn_2.0.0-1_amd64.deb
+    dest: "/tmp/expressvpn_2.0.0-1_amd64.deb"
+
+- name: Install the ExpressVPN Package
+  apt:
+    deb: "/tmp/expressvpn_2.0.0-1_amd64.deb"
+
+- name: Activate ExpressVPN
+  expect:
+    echo: yes
+    command: expressvpn activate
+    responses:
+      code: "{{express_vpn_activation_code}}"
+      survey: 'n'

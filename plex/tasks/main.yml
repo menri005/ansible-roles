@@ -1,0 +1,51 @@
+---
+# Installs Plex on an Ubuntu Server
+
+- name: Add Plex's GPG Key
+  become: yes
+  apt_key: 
+    url: https://downloads.plex.tv/plex-keys/PlexSign.key
+    state: present 
+
+- name: Add Plex's Repository
+  apt_repository:
+    repo: deb https://downloads.plex.tv/repo/deb public main
+    state: present
+
+- name: Update Apt cache
+  apt:
+    update_cache: yes
+
+- name: Install Plex server and dependencies
+  apt:
+    name: [plexmediaserver, apt-transport-https]
+
+- name: Copy the plex ufw profile
+  copy:
+    src: ./plex/files/plexmediaserver
+    dest: /etc/ufw/applications.d/plexmediaserver
+  become: yes
+
+- name: Enable Plex UFW rules
+  ufw:
+    rule: allow
+    name: plexmediaserver-all
+
+- name: Ensure media directories exist
+  file:
+    path: "/opt/plexmedia/{{ item.name }}"
+    owner: plex
+    group: plex
+    state: directory
+  with_items:
+      - { name: 'movies' }
+      - { name: 'tvshows' }
+      - { name: 'videos' }
+      - { name: 'music' }
+    
+- name: Add zappy to the plex group
+  user:
+    name: zappy
+    group: plex
+    append: yes
+    state: present

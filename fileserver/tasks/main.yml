@@ -1,0 +1,50 @@
+---
+# Installs a file server on Ubuntu Server
+# If shares will be on separate disks, then this role must be ran
+# after those disks have been installed and you must have the UUIDs of 
+# those disks for Ansible to mount them
+# modify the smb.conf file 
+
+- name: Install Samba
+  apt:
+    name: samba
+
+- name: Open up the firewall for Samba (SMB) services
+  ufw:
+    rule: allow
+    name: samba
+
+# Make sure this path exists in your smb.conf under the files directory!
+- name: Ensure the mount directory exists
+  file:
+    path: /samba/Documents
+    state: directory
+  become: yes
+
+# Make sure this UUID is updated on the variables.yml file
+# if working on a VM, you'll need to add this disk and get the 
+# UUID manually :( 
+- name: Mount the disk that will host the fileserver content
+  mount:
+    path: /samba/Documents
+    src: "{{ fileserver_disk }}"
+    fstype: ext4
+    state: present
+    backup: yes
+
+- name: Backup original smb.conf file
+  copy:
+    src: /etc/samba/smb.conf
+    dest: /etc/samba/smb.conf.bak
+    remote_src: yes
+
+- name: Copy the samba.conf file
+  copy:
+    src: ./fileserver/files/smb.conf
+    dest: /etc/samba/smb.conf
+
+- name: Restart the Samba service
+  service:
+    name: smbd
+    state: restarted
+

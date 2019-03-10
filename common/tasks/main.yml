@@ -5,15 +5,25 @@
   command: echo "zappy ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/zappy ; chmod 0440 /etc/sudoers.d/zappy ;
   become: yes
 
-- name: Uninstalling python 3 =( (Ansible Docker Modules require Python2)
-  apt:
-    name: [python3, python3-pip]
-    state: absent
-
-- name: Installing Python2, pip2
-  apt:
-    name: [python, python-pip]
-
 - name: Install requests module
   pip:
     name: requests
+
+- name: Install Pexpect module
+  apt:
+    name: python-pexpect
+
+# if this is vmware box (for me it usually is)
+# installing the open vm tools is easier and more straightforward
+# then doing VMWare's
+- name: Install vmware tools
+  apt:
+    name: open-vm-tools
+
+- name: Install VIM
+  apt:
+    name: vim
+
+- name: Install net-tools
+  apt:
+    name: net-tools
