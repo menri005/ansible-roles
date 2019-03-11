@@ -1,9 +1,18 @@
 ---
 # Run common tasks on this server 
 
+- name: "Changing hostname to {{ hostname }}"
+  hostname:
+    name: "{{ hostname }}"
+
 - name: Enabling user as sudoer without requiring a password
-  command: echo "zappy ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/zappy ; chmod 0440 /etc/sudoers.d/zappy ;
-  become: yes
+  replace:
+    path: /etc/sudoers.d/zappy
+    regexp: 'dummy'
+    replace: 'zappy'
+
+#   command: chmod 0740 /etc/sudoers.d/zappy; echo "zappy ALL=(ALL:ALL) NOPASSWD:ALL" > /etc/sudoers.d/zappy ; chmod 0440 /etc/sudoers.d/zappy ;
+#   become: yes
 
 - name: Install requests module
   pip:

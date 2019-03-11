@@ -33,15 +33,18 @@
 
 - name: Ensure media directories exist
   file:
-    path: "/opt/plexmedia/{{ item.name }}"
+    path: "/samba/Documents/{{ item.name }}"
     owner: plex
     group: plex
     state: directory
+    mode: 0775
   with_items:
-      - { name: 'movies' }
-      - { name: 'tvshows' }
-      - { name: 'videos' }
-      - { name: 'music' }
+      - { name: 'plex'}
+      - { name: 'plex/movies' }
+      - { name: 'plex/tvshows' }
+      - { name: 'plex/videos' }
+      - { name: 'plex/music' }
+  become: yes
     
 - name: Add zappy to the plex group
   user:

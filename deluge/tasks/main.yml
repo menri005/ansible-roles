@@ -26,6 +26,18 @@
     append: yes
     state: present
 
+- name: Ensure deluge download directories exist
+  file:
+    path: "/samba/Documents/{{ item.name }}"
+    owner: deluge
+    group: deluge
+    state: directory
+    mode: 0775
+  with_items:
+    - { name: 'deluge'}
+    - { name: 'deluge/downloads'}  
+  become: yes
+    
 - name: Copying the Deluge systemd service file
   copy:
     src: ./deluge/files/deluge.service
