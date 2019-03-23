@@ -11,6 +11,11 @@
     name: [deluged, deluge-webui]
     state: present
 
+- name: Add the deluge group
+  group:
+    name: deluge
+    state: present
+
 - name: Add the deluge user
   user:
     name: deluge
