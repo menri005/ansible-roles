@@ -1,0 +1,18 @@
+---
+# Installs a Nessus vulnerability scanner
+
+- name: Copy Nessus package
+  copy:
+    src: nessus/files/Nessus-8.3.1-ubuntu1110_amd64.deb
+    dest: "/tmp/nessus.deb"
+
+- name: Install Nessus package
+  apt:
+    deb: /tmp/nessus.deb
+
+- name: Start Nessus service
+  service:
+    name: nessusd
+    state: started
+
+
