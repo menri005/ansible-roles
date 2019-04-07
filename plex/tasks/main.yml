@@ -9,7 +9,7 @@
 
 - name: Add Plex's Repository
   apt_repository:
-    repo: deb https://downloads.plex.tv/repo/deb public main
+    repo: "deb https://downloads.plex.tv/repo/deb/ public main"
     state: present
 
 - name: Update Apt cache

@@ -36,3 +36,17 @@
 - name: Install net-tools
   apt:
     name: net-tools
+
+- name: Install unrar
+  apt:
+    name: unrar
+
+# update thoe /etc/hosts file to have the hostname
+- name: Update the hosts file with the server name
+  lineinfile:
+    path: /etc/hosts
+    regexp: '^127\.0\.1\.1'
+    line: '127.0.1.1 {{ hostname }}'
+    owner: root
+    group: root
+    mode: 0644
