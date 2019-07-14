@@ -45,7 +45,7 @@
     
 - name: Copying the Deluge systemd service file
   copy:
-    src: ./deluge/files/deluge.service
+    src: deluge.service
     dest: /etc/systemd/system/deluged.service
     owner: deluge
     group: deluge
@@ -59,7 +59,7 @@
 
 - name: Copying the Deluge WebUI systemd service file
   copy:
-    src: ./deluge/files/deluge-web.service
+    src: deluge-web.service
     dest: /etc/systemd/system/deluge-web.service
     owner: deluge
     group: deluge

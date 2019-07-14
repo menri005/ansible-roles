@@ -22,7 +22,7 @@
 
 - name: Copy the plex ufw profile
   copy:
-    src: ./plex/files/plexmediaserver
+    src: plexmediaserver
     dest: /etc/ufw/applications.d/plexmediaserver
   become: yes
 

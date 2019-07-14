@@ -40,7 +40,7 @@
 
 - name: Copy the samba.conf file
   copy:
-    src: ./fileserver/files/smb.conf
+    src: smb.conf
     dest: /etc/samba/smb.conf
 
 - name: Restart the Samba service

@@ -3,7 +3,7 @@
 
 - name: Copy Nessus package
   copy:
-    src: nessus/files/Nessus-8.3.1-ubuntu1110_amd64.deb
+    src: Nessus-8.3.1-ubuntu1110_amd64.deb
     dest: "/tmp/nessus.deb"
 
 - name: Install Nessus package

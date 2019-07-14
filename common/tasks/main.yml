@@ -41,6 +41,10 @@
   apt:
     name: unrar
 
+- name: Install iperf
+  apt:
+    name: iperf
+
 # update thoe /etc/hosts file to have the hostname
 - name: Update the hosts file with the server name
   lineinfile:
