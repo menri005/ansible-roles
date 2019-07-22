@@ -1,0 +1,7 @@
+---
+# use this playbook to config a vyos router
+- name: Preparing vyos router
+  hosts: vyos
+  connection: network_cli
+  roles:
+    - vyos
