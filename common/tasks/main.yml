@@ -45,6 +45,10 @@
   apt:
     name: iperf
 
+- name: Install curl
+  apt:
+    name: curl
+
 # update thoe /etc/hosts file to have the hostname
 - name: Update the hosts file with the server name
   lineinfile:

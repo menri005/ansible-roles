@@ -6,4 +6,6 @@
     aggregate:
       - { name: eth0, ipv4: 192.168.1.111/24 }
       - { name: eth1, ipv4: 10.0.1.1/24 }
+      - { name: eth1, ipv4: 10.0.1.100/24, state: absent }
+      - { name: eth1, ipv4: 10.0.1.200/24, state: absent }
       - { name: eth2, ipv4: 10.0.2.1/24 }
