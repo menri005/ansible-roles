@@ -1,0 +1,10 @@
+---
+# Installs Apache Guacamole on Ubuntu
+
+- name: Install Guacamole 
+  apt:
+    name: guacamole-tomcat
+
+- name: Install ssh lib for Guacamole
+  apt:
+    name: libguac-client-ssh0
